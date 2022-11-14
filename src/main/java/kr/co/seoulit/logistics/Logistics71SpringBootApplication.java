@@ -60,4 +60,5 @@ public class Logistics71SpringBootApplication extends SpringBootServletInitializ
     } 
 
 	// 깃 허브--------------------------------------------------------
+	// 깃 허브 2
 }
