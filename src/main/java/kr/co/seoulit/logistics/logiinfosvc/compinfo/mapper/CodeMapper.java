@@ -37,4 +37,5 @@ public interface CodeMapper {
 	public ArrayList<ImageTO> selectDetailItemList(String itemGroupCodeNo);
 	public void insertCustomer(CustomerTO to);
 
+	public void deleteCustomer(String removeCustomer);
 }

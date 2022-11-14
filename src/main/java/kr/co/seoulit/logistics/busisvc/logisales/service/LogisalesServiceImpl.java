@@ -290,6 +290,7 @@ public class LogisalesServiceImpl implements LogisalesService {
 
 		setValue=new HashMap<String,String>();
 		for(String key:workingContractList.keySet()) {
+			System.out.println("######"+key);
 			str=new StringBuffer();
 
 			// {수주상세번호,수주유형,수주등록자...)
@@ -308,6 +309,7 @@ public class LogisalesServiceImpl implements LogisalesService {
 			else
 				setValue.put(key, str.toString());
 		}
+
 		contractMapper.insertContractDetail(setValue);
 
 		resultMap.put("gridRowJson", setValue.get("RESULT"));

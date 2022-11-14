@@ -256,9 +256,9 @@ public class SalesServiceImpl implements SalesService {
         return ReturnAbleList;
     }
 
-    public void insertReturnList(ReverseTO reverseTO) {
+    public void insertReturnList(HashMap<String,String> returnMap) {
 
-        deliveryMapper.insertReturnList(reverseTO);
+        deliveryMapper.insertReturnList(returnMap);
 
     }
 

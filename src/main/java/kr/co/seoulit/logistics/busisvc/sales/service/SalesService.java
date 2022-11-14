@@ -37,7 +37,7 @@ public interface SalesService {
 
 	ArrayList<ReverseTO> getReturnAbleList(String startDate, String endDate);
 
-	void insertReturnList(ReverseTO reverseTO);
+	void insertReturnList(HashMap<String,String> returnMap);
 
 	public ArrayList<ReverseTO> getReturnList();
 

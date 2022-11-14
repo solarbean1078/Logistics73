@@ -602,26 +602,7 @@
                         // 초기화
                         mpsGridOptions.api.setRowData([]);
                         processPlaneGridOptions.api.setRowData([]);
-                        //Swal.fire("data",,"success")
-                        // console.log(txt.gridRowJson)
-                        // let conDNStr="";
-                        // const conDetailList = Object.values(txt.gridRowJson);//어레이라이크를 배열형태로 바꿔줌
-                        // console.log(conDetailList)
-                        // for(let i=0;i<conDetailList.length;i++){
-                        //     if(conDetailList[i]!=undefined){
-                        //         conDNStr+=conDetailList[i].contractDetailNo;
-                        //         conDNStr+="<br>"
-                        //         console.log(conDetailList[i].contractDetailNo);
-                        //     }
-                        // }
-                        // console.log(conDNStr);
-                        // console.log("수주 완료");
-                        // let resultMsg =
-                        //     "<h5>< 공정계획 등록 내역 ></h5><br>"
-                        //     + txt.errorMsg+"<br>"
-                        //     +"수주 상세 번호 :"
-                        //     +   conDNStr
-                        //     + "<br>위와 같이 작업이 처리되었습니다";
+
                         Swal.fire({
                             title: "공정등록이 완료되었습니다.",
                             html:"수주 상세 코드 : " + contractDetailNo,

@@ -6,6 +6,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/CovidVaccination.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi/estimateRegister.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hello3.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/reverse/ReverseInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/reverse" />
       </map>
     </option>
   </component>

@@ -13,10 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -236,12 +233,13 @@ public class DeliveryController {
         return map;
     }
     // 반품등록
-    @RequestMapping(value = "/ReturnRegister", method = RequestMethod.GET)
+    @RequestMapping(value = "/ReturnRegister", method = RequestMethod.POST)
 
-    public ModelMap getReturnRegister(String ableReturnInfo) {
+    public ModelMap registerReturn(@RequestBody HashMap<String,String> returnMap) {
         map = new ModelMap();
-        System.out.println(ableReturnInfo);
-        ArrayList<ReverseTO> reverseTOList = new ArrayList<>();
+        System.out.println(returnMap);
+        salesService.insertReturnList(returnMap);
+        /*ArrayList<ReverseTO> reverseTOList = new ArrayList<>();
         JSONArray json = new JSONArray(ableReturnInfo);
         System.out.println(json);
         for (Object jsonobj : json) {
@@ -283,7 +281,7 @@ public class DeliveryController {
         }
         for(ReverseTO reverseTO : reverseTOList){
 
-        }
+        }*/
         return map;
     }
     //반품 조회

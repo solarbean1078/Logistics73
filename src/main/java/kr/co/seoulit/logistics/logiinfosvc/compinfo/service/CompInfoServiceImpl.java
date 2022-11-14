@@ -24,6 +24,8 @@ import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.ImageTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.LatLngTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.WorkplaceTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.util.BoardFile;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class CompInfoServiceImpl implements CompInfoService {
@@ -32,6 +34,23 @@ public class CompInfoServiceImpl implements CompInfoService {
     private CodeMapper codeMapper;
     @Autowired
     private CompInfoMapper compInfoMapper;
+
+    @Override
+    public ArrayList<CustomerTO> findCustomerList(){
+        ArrayList<CustomerTO> customer=codeMapper.selectCustomerList();
+        return customer;
+    }
+    @Override
+    public void registerCustomer(ArrayList<CustomerTO> cto_list) {
+        for(CustomerTO to:cto_list)
+            codeMapper.insertCustomer(to);
+    }
+
+    @Override
+    public void removeCustomer(String removeCustomer){
+        //System.out.println(removeCustomer+"서비스삭제");
+        codeMapper.deleteCustomer(removeCustomer);
+    }
 
     @Override
     public ArrayList<CodeDetailTO> getDetailCodeList(String divisionCode) {
@@ -72,7 +91,6 @@ public class CompInfoServiceImpl implements CompInfoService {
 
         return flag;
     }
-
     @Override
     public HashMap<String, Object> batchCodeListProcess(ArrayList<CodeTO> codeList) {
 
@@ -279,7 +297,7 @@ public class CompInfoServiceImpl implements CompInfoService {
     }
 
     @Override
-    public void addCodeInFormation(ArrayList<CodeTO> CodeTOList) {
+    public void addCodeInFormation(ArrayList<CodeTO>  CodeTOList) {
 
         for (CodeTO bean : CodeTOList) {
             String status = bean.getStatus();
@@ -311,7 +329,7 @@ public class CompInfoServiceImpl implements CompInfoService {
     }
 
     @Override
-    public ArrayList<CustomerTO> getCustomerList(String searchCondition, String companyCode, String workplaceCode, String itemGroupCode) {
+    public ArrayList<CustomerTO> getCustomerList(String searchCondition, String companyCode, String workplaceCode,String itemGroupCode) {
 
         ArrayList<CustomerTO> customerList = null;
 
@@ -501,7 +519,6 @@ public class CompInfoServiceImpl implements CompInfoService {
 
         return resultMap;
     }
-
     @Override
     public ArrayList<CompanyTO> getCompanyList() {
 
@@ -518,7 +535,7 @@ public class CompInfoServiceImpl implements CompInfoService {
         ArrayList<WorkplaceTO> workplaceList = null;
 
         workplaceList = compInfoMapper.selectWorkplaceList(companyCode);
-
+//			workplaceList = compInfoService.getWorkplaceList(companyCode);// COM-01
         return workplaceList;
     }
 
@@ -961,7 +978,6 @@ public class CompInfoServiceImpl implements CompInfoService {
 
         return codeDetailList;
     }
-
     @Override
     public ArrayList<EstimateReportTO> getEstimateReport(String estimateNo) {
         return compInfoMapper.selectEstimateReport(estimateNo);
@@ -977,7 +993,7 @@ public class CompInfoServiceImpl implements CompInfoService {
     @Override
     public ArrayList<BoardTO> getBoardList() {
 
-        ArrayList<BoardTO> list = null;
+        ArrayList<BoardTO> list=null;
         list = compInfoMapper.selectBoardList();
         return list;
 
@@ -1001,7 +1017,7 @@ public class CompInfoServiceImpl implements CompInfoService {
     @Override
     public BoardTO getBoard(int board_seq) {
 
-        BoardTO board = null;
+        BoardTO board=null;
         board = compInfoMapper.selectBoard(board_seq);
         return board;
 
@@ -1035,7 +1051,7 @@ public class CompInfoServiceImpl implements CompInfoService {
     @Override
     public int getRowCount() {
 
-        int dbCount = 0;
+        int dbCount=0;
         dbCount = compInfoMapper.selectRowCount();
         return dbCount;
 
@@ -1044,27 +1060,15 @@ public class CompInfoServiceImpl implements CompInfoService {
     @Override
     public ArrayList<BoardTO> getBoardList(int sr, int er) {
 
-        ArrayList<BoardTO> list = null;
+        ArrayList<BoardTO> list=null;
         list = compInfoMapper.selectBoardList(sr, er);
         return list;
 
     }
 
-    public void removeBoard(int board_seq) {
+    public void removeBoard(@RequestParam int board_seq) {
 
         compInfoMapper.deleteBoard(board_seq);
 
-    }
-
-    @Override
-    public ArrayList<CustomerTO> findCustomerList() {
-        ArrayList<CustomerTO> customer = codeMapper.selectCustomerList();
-        return customer;
-    }
-
-    @Override
-    public void registerCustomer(ArrayList<CustomerTO> cto_list) {
-        for (CustomerTO to : cto_list)
-            codeMapper.insertCustomer(to);
     }
 }

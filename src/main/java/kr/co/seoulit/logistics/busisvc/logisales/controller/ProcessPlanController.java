@@ -18,8 +18,7 @@ public class ProcessPlanController {
     //private static Gson gson = new GsonBuilder().serializeNulls().create();
 
     @RequestMapping(value="/processplan/new" , method= RequestMethod.POST)
-    public ModelMap processPlan(@RequestBody HashMap<String,String> processMap
-    ) {
+    public ModelMap processPlan(@RequestBody HashMap<String,String> processMap) {
         //System.out.println(batchList);
 
         map = new ModelMap();

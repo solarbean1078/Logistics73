@@ -33,7 +33,7 @@ public interface DeliveryMapper {
 
     public ArrayList<ReverseTO> selectReturnAbleList(@Param("start") String startDate, @Param("end")  String endDate);
 
-    public void insertReturnList(ReverseTO reverseTO);
+    public void insertReturnList(HashMap<String,String> returnMap);
 
     public ArrayList<ReverseTO> selectReturnList();
 

@@ -145,7 +145,7 @@
 
 <article class="contract">
     <div class="contract__Title">
-        <h5>📦 교환/반품</h5>
+        <h5>📦 반품</h5>
         <div style="color: black;">
             <b>납품 날짜</b><br/>
         </div>
@@ -155,10 +155,10 @@
                 <input type="text" id="fromDate" placeholder="YYYY-MM-DD 📅" size="15" style="text-align: center">
                 &nbsp; ~ &nbsp;<input type="text" id="toDate" placeholder="YYYY-MM-DD 📅" size="15"
                                       style="text-align: center">
-                &nbsp;&nbsp;&nbsp;&nbsp;<div class="button1" type="button" id="contractCandidateSearchButton">&nbsp;&nbsp;교환/반품
+                &nbsp;&nbsp;&nbsp;&nbsp;<div class="button1" type="button" id="contractCandidateSearchButton">&nbsp;&nbsp;반품
                 가능 조회&nbsp;&nbsp;
             </div>
-                <div class="button2" type="button" id="ReturnRegistersButton">&nbsp;&nbsp;교환/반품 처리&nbsp;&nbsp;</div>
+                <div class="button2" type="button" id="ReturnRegistersButton">&nbsp;&nbsp;반품 처리&nbsp;&nbsp;</div>
 
             </div>
 
@@ -181,7 +181,7 @@
 <br>
 <br>
 <div>
-    <h5>📦 교환/반품 목록 &nbsp;&nbsp;<div class="button3" type="button" id="returnListSearchButton">&nbsp;&nbsp;교환/반품 내역 조회&nbsp;&nbsp; </div>
+    <h5>📦 반품 목록 &nbsp;&nbsp;<div class="button3" type="button" id="returnListSearchButton">&nbsp;&nbsp;반품 내역 조회&nbsp;&nbsp; </div>
         <div class="button4" type="button" id="deleteListButton">&nbsp;&nbsp;삭제&nbsp;&nbsp;</div></h5>
 
 </div>
@@ -275,9 +275,9 @@
 
         {headerName: "거래처명", field: "customerName"},
 
-        /*{headerName: "교환/반품", field: "reverseTypeName"},*/
+        /*{headerName: "반품", field: "reverseTypeName"},*/
 
-        {headerName: "교환/반품 코드", field: "reverseType", hide:true},
+       /* {headerName: "반품 코드", field: "reverseType", hide:true},*/
 
         {headerName: "품목코드", field: "itemCode"},
 
@@ -309,7 +309,7 @@
             return data.deliveryNO;
         },
         defaultColDef: {editable: false, resizable: true},
-        overlayNoRowsTemplate: "교환/반품 가능한 리스트가 없습니다.",
+        overlayNoRowsTemplate: "반품 가능한 리스트가 없습니다.",
         onGridReady: function (event) {// onload 이벤트와 유사 ready 이후 필요한 이벤트 삽입한다.
             event.api.sizeColumnsToFit();
         },
@@ -366,7 +366,7 @@
         //     return data.contractDetailNo;
         // },
         defaultColDef: {editable: false, resizable: true},
-        overlayNoRowsTemplate: "교환/반품 내역 조회를 눌러주세요.",
+        overlayNoRowsTemplate: "반품 내역 조회를 눌러주세요.",
         onGridReady: function (event) {// onload 이벤트와 유사 ready 이후 필요한 이벤트 삽입한다.
             event.api.sizeColumnsToFit();
         },
@@ -454,48 +454,86 @@
     const returnBtn = document.querySelector("#ReturnRegistersButton");
 
     returnBtn.addEventListener("click", () => {
+        //입력받은 재고사용량가지고 DB로 가자
 
-        selectedRows = returnAbleListGridOptions.getSelectedRowData();
-
-        for (a=0; a<selectedRows.length; a++){
-            console.log(selectedRows[a].returnDate)
+        let selectedNodes = returnAbleListGridOptions.api.getSelectedNodes();
+        // o No seleted Nodes
+        if (selectedNodes == "") {
+            Swal.fire({
+                position: "top",
+                icon: 'error',
+                title: '체크 항목',
+                text: '선택된 반품계획이 없습니다.',
+            })
+            return;
         }
 
-        let ableReturnIn = JSON.stringify(selectedRows);
+        let deliveryNO; // 수주상세 일련번호
+        let itemCode; //수주유형
+        let returnUnit; // 재고사용량
 
-        let ableReturnInfo = encodeURI(ableReturnIn)
 
 
-    for (a=0 ; a<selectedRows.length; a++){
-        if (selectedRows[a].returnDate==null){
-            swal.fire("알림", "날짜를 입력하세요.", "info")
-        }else
-            swal.fire("알림", "반품이 완료되었습니다.", "info")
-    }
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', "${pageContext.request.contextPath}/sales/ReturnRegister"
-            + "?method=getReturnRegister"
-            + "&ableReturnInfo=" + ableReturnInfo
-            , true);
-        xhr.setRequestHeader('Accept', 'application/json');
-        xhr.send();
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                let txt = xhr.responseText;
-                txt = JSON.parse(txt);
-                if (txt.gridRowJson == "") {
-                    Swal.fire("알림", "조회 가능 리스트가 없습니다.", "info");
-                    return;
-                } else if (txt.errorCode < 0) {
-                    Swal.fire("알림", txt.errorMsg, "error");
-                    return;
-                }
-                returnListGridOptions.api.setRowData(txt.gridRowJson);
-            }
+        selectedNodes.map(selectedData => {
+            deliveryNO=selectedData.data.deliveryNO;
+            itemCode=selectedData.data.itemCode;
+            returnUnit=selectedData.data.returnUnit;
 
-        }
+            console.log("$$"+selectedData.data.deliveryNO);
+            console.log("##"+selectedData.data.returnUnit);
 
-    })
+
+        });
+
+        let resultArray={"deliveryNO":deliveryNO ,"itemCode":itemCode,"returnUnit":returnUnit};
+
+        resultArray=JSON.stringify(resultArray);
+
+        console.log("$$$$$$$$$$"+resultArray);
+        Swal.fire({
+            title: '반품계획 등록',
+            text:  deliveryNO + "를 등록하시겠습니까?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: '취소',
+            confirmButtonText: '확인',
+        }).then( (result) => {
+            if (result.isConfirmed) {
+                let xhr = new XMLHttpRequest();
+
+                //let today = now.getFullYear() + "-" + (now.getMonth() +1 ) + "-" +  now.getDate();
+                xhr.open('POST', "${pageContext.request.contextPath}/sales/ReturnRegister?"
+                    + "method=registerReturn"
+                    //+ "&batchList=" + encodeURI(resultArray),
+                    ,true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(resultArray);
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+
+                        // 데이터 확인
+                        let txt = xhr.responseText;
+                        txt = JSON.parse(txt);
+
+                        if (txt.errorCode < 0) {
+                            Swal.fire("오류", txt.errorMsg, "error");
+                            return;
+                        }
+                        // 초기화
+                        returnAbleListGridOptions.api.setRowData([]);
+                        //processPlaneGridOptions.api.setRowData([]);
+
+                        Swal.fire({
+                            title: "반품등록이 완료되었습니다.",
+                            html:"납품 상세 코드 : " + deliveryNO,
+                            icon: "success",
+                        });
+                    }
+                };
+            }})
+    });
 
     ///////////////////////////반품 내역 조회////////////////////////////////////////
 

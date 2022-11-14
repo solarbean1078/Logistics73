@@ -144,16 +144,19 @@
           AND A.RETURN_STATUS IS NULL
     </select>
 
-    <insert id="insertReverseList" parameterType="kr.co.seoulit.logistics.busisvc.sales.to.ReverseTO">
-        INSERT INTO REVERSE_INFO
-        VALUES (#{deliveryNO},
-                #{deliveryDate},
-                #{returnDate},
-                #{customerName},
-                #{itemName},
-                #{returnUnit},
-                #{returnUnitPrice},
-                #{returnSumPrice})
+
+    <parameterMap type="map" id="insertReturnParameter">
+        <parameter property="deliveryNO" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+        <parameter property="itemCode" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+        <parameter property="returnUnit" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+        <parameter property="ERROR_CODE" javaType="java.lang.Integer" jdbcType="DECIMAL" mode="OUT" />
+        <parameter property="ERROR_MSG" javaType="java.lang.String" jdbcType="VARCHAR" mode="OUT" />
+    </parameterMap>
+
+    <insert id="insertReturnList" parameterMap="insertReturnParameter" statementType="CALLABLE">
+         <![CDATA[
+        {call P_REGISTER_RETURN(?,?,?,?,?)}
+        ]]>
     </insert>
 
     <select id="selectReturnList" resultType="kr.co.seoulit.logistics.busisvc.sales.to.ReverseTO">
