@@ -686,7 +686,14 @@
   })
   
   document.querySelector("#amountSave").addEventListener("click", () => {  //modal창 밑에 있는 Save에 걸리는 이벤트
-    if (itemRowNode == undefined) {   return;}
+      if($('#estimateAmountBox').val()==0){
+          Swal.fire({
+              text: "수량을 입력하이소~",
+              icon: "info",
+          })
+          itemRowNode.setDataValue("estimateAmount", $('#estimateAmountBox').val(""))
+          itemRowNode.setDataValue("sumPriceOfEstimate", $('#sumPriceOfEstimateBox').val(""))
+      } else if (itemRowNode == undefined) {   return;}
     estDetailGridOptions.api.stopEditing();
     itemRowNode.setDataValue("estimateAmount", $('#estimateAmountBox').val());
     itemRowNode.setDataValue("unitPriceOfEstimate", $('#unitPriceOfEstimateBox').val());
