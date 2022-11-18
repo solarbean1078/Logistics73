@@ -4,6 +4,7 @@
 <html>
 <head>
     <style>
+        /* ??
         #change-chart {
             border-radius: 8px 8px 8px 8px; <%--테두리 둥글게 만드는 옵션--%>
             padding-left: 50px; <%--왼쪽여백 --%>
@@ -12,7 +13,7 @@
             left: 5%; <%--왼쪽기준 5%--%>
             top: auto;
             background-color: goldenrod;
-        }
+        }*/
 
 
     </style>
@@ -68,11 +69,11 @@
 
         function drawStuff() {
 
-            var button = document.getElementById('change-chart');
-            var chartDiv = document.getElementById('chart_div');
-            var data = google.visualization.arrayToDataTable(stockChart);
+            let button = document.getElementById('change-chart');
+            let chartDiv = document.getElementById('chart_div');
+            let data = google.visualization.arrayToDataTable(stockChart);
 
-            var materialOptions = {
+            let materialOptions = {
                 width: 3300,
                 chart: {
                     title: '품목별 현 재고량',
@@ -97,7 +98,7 @@
                 }
             };
 
-            var classicOptions = {
+            let classicOptions = {
                 width: 1300,
                 title: ' 🏭 품목별 현 재고량 - 전체재고, 안전재고, 가용재고 ',
                 vAxes: {
@@ -119,19 +120,26 @@
 
             };
 
+/*            function drawMaterialChart() {
+                let materialChart = new google.charts.Bar(chartDiv);
+                materialChart.draw(data, google.charts.Bar.convertOptions(materialOptions));
+                button.innerText = '포괄 전개';
+                button.onclick = drawClassicChart;
+            }*/
+
 
             function drawClassicChart() {
-                var classicChart = new google.visualization.ColumnChart(chartDiv);
+                let classicChart = new google.visualization.ColumnChart(chartDiv);
                 classicChart.draw(data, classicOptions);
                 button.innerText = '상세 전개';
                 button.onclick = drawMaterialChart;
             }
 
             drawClassicChart();
-        };
+        }
 
 
-        <%--------------황주영 그래프만들기 시작2022.09.29--------------%>
+        <%--------------분기별 매출--------------%>
 
         let salesQuaChart;
 
@@ -169,13 +177,13 @@
             }
         });
 
-        /*google.charts.load("current", {packages: ['bar']});
-        google.charts.setOnLoadCallback(drawChart);*/
+        google.charts.load("current", {packages: ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
 
-            var data = new google.visualization.arrayToDataTable(salesQuaChart);
-            var options = {
+            let data = new google.visualization.arrayToDataTable(salesQuaChart);
+            let options = {
                 chart: {
                     width: 1300,
                     title: '💴 서울IT물류센터 분기별 매출',
@@ -196,15 +204,37 @@
                 vAxis: {title:'단위',maxValue:35,minValue:15}, //vAxis는 y축에 대한 옵션이다.
             };
 
-
-            var comboTotal = new google.charts.Bar(document.getElementById('total'));
+            let comboTotal = new google.charts.Bar(document.getElementById('total'));
             //그래프 format 형식 바꾸기
             comboTotal.draw(data, google.charts.Bar.convertOptions(options));
-            var formatter = new google.visualization.NumberFormat({pattern: '###,###원'});
+            let formatter = new google.visualization.NumberFormat({pattern: '###,###원'});
             formatter.format(data, 1);
         }
 
 
+        function drawChart1() {
+
+            let data = new google.visualization.arrayToDataTable(salesItemChart);
+            let options = {
+                chart: {
+                    width: 1300,
+                    title: '',
+                    subtitle: ''
+                },
+
+                titleTextStyle: {
+                    fontName: 'Arial',
+                    bold: false,
+                    fontSize: 28,
+                    color: '#494CA2'
+                },
+                animation: {
+                    startup: true,
+                    duration: 1000,
+                    easing: 'out'
+                }
+                // vAxis: {title:'단위',maxValue:35,minValue:15}, //vAxis는 y축에 대한 옵션이다.
+            }
 
         let salesItemChart;
 
@@ -241,42 +271,10 @@
                 }
             }
         })
-
         google.charts.load("current", {packages: ['bar']});
         google.charts.setOnLoadCallback(drawChart1);
 
-        function drawChart1() {
-
-            var data = new google.visualization.arrayToDataTable(salesItemChart);
-            var options = {
-                chart: {
-                    width: 1300,
-                    title: '',
-                    subtitle: ''
-                },
-
-                titleTextStyle: {
-                    fontName: 'Arial',
-                    bold: false,
-                    fontSize: 28,
-                    color: '#494CA2'
-                },
-                animation: {
-                    startup: true,
-                    duration: 1000,
-                    easing: 'out'
-                },
-                // vAxis: {title:'단위',maxValue:35,minValue:15}, //vAxis는 y축에 대한 옵션이다.
-            };
-
-
-            // var comboTotal = new google.charts.Bar(document.getElementById('itemChart'));
-            // //그래프 format 형식 바꾸기
-            comboTotal.draw(data, google.charts.Bar.convertOptions(options));
-            // var formatter = new google.visualization.NumberFormat({pattern: '###,###원'});
-            // formatter.format(data, 1);
         }
-
 
     </script>
 </head>
@@ -285,7 +283,6 @@
 <div id="total" style="width: 79%; height: 40%; margin:0 auto"></div>
 <%--<div id="itemChart" style="width: 100%; height: 50%;"></div>--%>
 <div id="chart_div" style="width: 100%; height: 50%;"></div>
-
 
 </body>
 </html>

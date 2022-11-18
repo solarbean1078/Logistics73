@@ -108,7 +108,7 @@ public class CommonAspect {
 	 public class LoggerAspect {
 		  //Logger log = LoggerFactory.getLogger(getClass());
 		
-		@Around("execution(* kr..controller.*.*(..)) or execution(* kr..service.*.*(..)) or execution(* kr..mapper.*.*(..))")
+		@Around("execution(* kr..controller.*.*(..)) || execution(* kr..service.*.*(..)) || execution(* kr..mapper.*.*(..))")
 		public Object logPrint(ProceedingJoinPoint joinPoint) throws Throwable {
 			String type = "";
 			String name = joinPoint.getSignature().getDeclaringTypeName();
@@ -132,7 +132,7 @@ public class CommonAspect {
 	 @Configuration
 	 public class TransactionAspect {
 	 	private static final String AOP_TRANSACTION_METHOD_NAME = "*";
-	 	private static final String AOP_TRANSACTION_EXPRESSION = "execution(* kr.co.seoulit..service.*.*(..) ) "; 
+	 	private static final String AOP_TRANSACTION_EXPRESSION = "execution(* kr.co.seoulit..service.*.*(..))";
 	 	
 	 	@Autowired
 	 	private PlatformTransactionManager transactionManager;
