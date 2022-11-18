@@ -35,7 +35,8 @@ public class ReportController {
 	   
 	@RequestMapping(value = "/report/estimate", method = RequestMethod.GET)
 	public void estimateReport(HttpServletRequest request, HttpServletResponse response) {
-		String iReportFolderPath = "C:\\dev\\nginx-1.21.6\\nginx-1.21.6\\html\\resources\\iReportForm\\Estimate.jrxml";
+		// 자기 프로젝트 있는 경로로 변경해주면 됨
+		String iReportFolderPath = "C:\\Users\\redci\\IdeaProjects\\Logistics73\\src\\main\\webapp\\resources\\iReportForm\\Estimate.jrxml";
 
 		HashMap<String, Object> parameters = new HashMap<>();
 		// 레포트 이름
@@ -89,8 +90,9 @@ public class ReportController {
 
 	@RequestMapping(value = "/report/contract", method = RequestMethod.GET)
 	public void contractReport(HttpServletRequest request, HttpServletResponse response) {
-		
-		String iReportFolderPath = "C:\\dev\\nginx-1.21.6\\nginx-1.21.6\\html\\resources\\iReportForm\\Contract.jrxml";
+
+		// 자기 프로젝트 있는 경로로 변경해주면 됨
+		String iReportFolderPath = "C:\\Users\\redci\\IdeaProjects\\Logistics73\\src\\main\\webapp\\resources\\iReportForm\\Contract.jrxml";
 
 		HashMap<String, Object> parameters = new HashMap<>();
 		// 레포트 이름

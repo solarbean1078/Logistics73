@@ -422,7 +422,7 @@
                 "?method=searchContract"
                 + "&startDate=" + fromDate.value
                 + "&endDate=" + toDate.value
-                /* + "&customerCode=" +  */
+                + "&customerCode="
                 + "&searchCondition=" + dateApply,
                 true)
                 console.log(fromDate.value);
