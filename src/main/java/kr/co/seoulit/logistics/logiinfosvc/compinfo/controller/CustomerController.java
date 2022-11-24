@@ -3,12 +3,14 @@ package kr.co.seoulit.logistics.logiinfosvc.compinfo.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Result;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -101,6 +103,7 @@ public class CustomerController {
 		}
 		return map;
 	}
+
 	@RequestMapping(value = "/customer/removeCustomer",method = RequestMethod.POST)
 	public ModelMap removeCustomer(@RequestParam String deleteCustomer){
 		System.out.println(deleteCustomer+"삭제했다!#");

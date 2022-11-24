@@ -349,7 +349,7 @@ $(document).ready(function() {
 //금융거래처정보추가
 	$('#financialAccountInsertButton').on("click" , function() {
 		
-		var grid = $('#financialAccountGrid');/
+		var grid = $('#financialAccountGrid');
 
 
 		var newRowNum = grid.jqGrid('getDataIDs').length+1;  // 새로운 행 넘버

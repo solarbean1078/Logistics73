@@ -45,6 +45,7 @@
 		{call P_CUSTOMER_CODE(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}
 		]]>
 	</insert>
+
 	<parameterMap type="map" id="removeCode" >
 		<parameter property="customerName" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
 	</parameterMap>

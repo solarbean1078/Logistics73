@@ -19,8 +19,6 @@ public interface CodeMapper {
 
 	public void deleteCode(CodeTO codeTO);
 
-	public ArrayList<CustomerTO> selectCustomerList();
-	//codeDetail
 
 	ArrayList<CodeDetailTO> selectDetailCodeList(String divisionCode);
 
@@ -35,6 +33,10 @@ public interface CodeMapper {
 	public ArrayList<LatLngTO> selectLatLngList(String wareHouseCodeNo);
 
 	public ArrayList<ImageTO> selectDetailItemList(String itemGroupCodeNo);
+
+
+	public ArrayList<CustomerTO> selectCustomerList();
+
 	public void insertCustomer(CustomerTO to);
 
 	public void deleteCustomer(String removeCustomer);

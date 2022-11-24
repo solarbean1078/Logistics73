@@ -59,20 +59,13 @@
                         <br/>혜람빌딩 7층
                     </p>
 
-                    <p>Tel : 010 - 7762 - 1078
-                        <br/>Email : solarbean1078@gmail.com
+                    <p>Tel : XXX - XXXX - XXXX
+                        <br/>Email : XXXX@gmail.com
                     </p>
 
                     <br>
 
                 </div>
-
-        <%--오류 발생--%>
-         <%--       <!-- Weather widget by https://meteodays.com 날씨위젯 시작-->
-                <a id="ms-informer-link-fd537d57dcc6e80e7fb99569c5c67f22" class="ms-informer-link" href="https://meteodays.com/ko/weather/overview/chinju">진주시 날씨</a>
-                <script class="ms-informer-script" src="https://meteodays.com/ko/informer/script/fd537d57dcc6e80e7fb99569c5c67f22"></script>
-                <!-- 날씨 위젯 끝 -->
---%>
             </div>
         </nav>
 
